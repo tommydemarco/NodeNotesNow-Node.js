@@ -1,94 +1,106 @@
 const express = require('express')
 const Note = require('../models/note')
+const auth = require('../middleware/auth')
 const router = new express.Router() 
 
-
-//creating a new note
-router.post('/notes', async (req, res) => {
-    //with the User model imported, creating an instance of user
-    const note = new Note(req.body)
+//creating a new note 
+router.post('/notes', auth, async (req, res) => {
+    const note = new Note({
+        ...req.body,
+        owner: req.user._id
+    })
 
     try {
         await note.save()
         res.status(201).send(note)
     } catch (e) {
-        res.status(401).send(e)
+        res.status(400).send(e)
     }
-
 })
 
+//getting back all the notes, with fetching options
+router.get('/notes', auth, async (req, res) => {
+    const match = {}
+    const sort = {}
 
-//GET REQUESTS
+    if (req.query.completed) {
+        match.completed = req.query.completed === 'true'
+    }
 
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    }
 
-//fetching all notes 
-router.get('/notes', async (req, res) => {
-    //this is a Mongoose method, for more read the mongoose documentation
     try {
-        const notes = await Note.find({})
-        res.send(notes)
-    } catch (p) {
+        await req.user.populate({
+            path:'notes',
+            match,
+            //adding pagination and sorting options
+            options: {
+                limit: (req.query.limit),
+                skip: (req.query.skip),
+                //sorting th results
+                sort
+            }
+        }).execPopulate()
+        res.send(req.user.notes)
+    } catch (e) {
         res.status(500).send()
     }
 })
 
-//fetching a single note by id 
-router.get('/notes/:id', async (req, res) => {
-    //getting the id from the parameters
+//getting back a single note by id
+router.get('/notes/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
-        const note = await Note.findById(_id)
+        const note = await Note.findOne({ _id, owner: req.user._id })
+
         if (!note) {
-            res.status(404).send()
+            return res.status(404).send()
         }
+
         res.send(note)
     } catch (e) {
         res.status(500).send()
     }
-
 })
 
-
-//not tested, NEEDS TESTING with Postman!
-//patching the single note
-router.patch('/notes/:id', async (req, res) => {
-    //logic to prevent the uppdate of non-existing properties
+//modify a single note by id
+router.patch('/notes/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const updateableProperties = ['description', 'completed']
-    const isValidUpdate = updates.every((update) => {
-        return updateableProperties.includes(update)
-    })
+    const allowedUpdates = ['description', 'completed']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
-    if (!isValidUpdate) {
-        return res.status(400).send({ error:"invalid updates" })
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
     }
 
     try {
-        const note = await Note.findById(req.params.id)
-        updates.forEach((update) =>  note[update] = req.body[update])
-        await note.save()
+        const note = await Note.findOne({ _id: req.params.id, owner: req.user._id})
 
         if (!note) {
-            res.status(404).send()
+            return res.status(404).send()
         }
+
+        updates.forEach((update) => note[update] = req.body[update])
+        await note.save()
         res.send(note)
     } catch (e) {
         res.status(400).send(e)
     }
 })
 
-
-//needs testing
-//deleting a single note
-router.delete('notes/:id', async (req, res) => {
-
+//delete a note by id 
+router.delete('/notes/:id', auth, async (req, res) => {
     try {
-        const note = await Note.findByIdAndDelete(req.params.id)
+        const note = await Note.findOneAndDelete({ _id: req.params.id, owner: req.user._id })
 
-        if(!note){
+        if (!note) {
             res.status(404).send()
         }
+
         res.send(note)
     } catch (e) {
         res.status(500).send()

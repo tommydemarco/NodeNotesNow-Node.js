@@ -2,8 +2,10 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+//including the Task model to be able to delete all Tasks when a user is deleted
+const Note = require('./note')
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true 
@@ -40,40 +42,46 @@ const userSchema = mongoose.Schema({
             reuqired: true
         }
     }]
-
+},
+//enabling timestamps
+{
+    timestamps: true
 })
 
-//getting the public profile for the user 
-userSchema.methods.toJSON = function(){
-    const user = this 
 
-    //getting the user to an object to delete some properties later on 
+//adding a virtual relation with the notes === OK
+userSchema.virtual('notes', {
+    ref: 'Note',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+
+//getting the public profile for the user  === OK
+userSchema.methods.toJSON = function () {
+    const user = this
     const userObject = user.toObject()
 
-    //deleting properties from the user object that you don't want to be shown in the result
     delete userObject.password
     delete userObject.tokens
 
     return userObject
-
 }
 
 
-//creating a method for the jsonwebtoken
-userSchema.methods.generateAuthToken = async function() {
+//creating a method for the jsonwebtoken ==== OK
+userSchema.methods.generateAuthToken = async function () {
     const user = this
-    //generate the actual token (second parameter is the secret)
-    const token = await jwt.sign({ _id: user._id.toString() }, 'nodewebapplication')
+    const token = jwt.sign({ _id: user._id.toString() }, 'nodewebapplication')
 
-    //saving the token to the user instance 
-    user.tokens = user.tokens.concat({ token: token })
-    //saving the user with the token 
+    user.tokens = user.tokens.concat({ token })
     await user.save()
 
     return token
 }
 
-//reusable function for the login 
+
+//reusable function for the login ==== OK
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
 
@@ -90,21 +98,27 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
+//MIDDLEWARES 
 
-//applying methods pre saving to hash the password
-userSchema.pre('save', async function(next) {
+//applying methods pre saving to hash the password === OK
+userSchema.pre('save', async function (next) {
     const user = this
-    
+
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8)
     }
-    
+
     next()
 })
 
-//defining the User model 
+//delete all the tasks associated with a user when the user is deleted 
+userSchema.pre('remove', async function(next){
+    const user = this 
+    await Note.deleteMany({ owner: user._id })
+    next()
+})
+
+//defining the User model === OK
 const User = mongoose.model('User', userSchema)
-
-
 
 module.exports = User

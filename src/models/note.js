@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
+//const validator = require('validator')
 
-//defining the tasks model 
-const Note = mongoose.model('Note', {
+
+//defining the notes schema
+const noteSchema = new mongoose.Schema({
     description:{
         type: String,
         required: true,
@@ -12,10 +13,19 @@ const Note = mongoose.model('Note', {
         type: Boolean,
         default: false
     },
-    date_due: {
-        type: Date,
-        default: new Date()
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        //referencing to the user model for the note-user linking 
+        ref : 'User'
     }
+},
+//enabling time stamps
+{
+    timestamps: true
 })
+
+//defining the User model === OK
+const Note = mongoose.model('Note', noteSchema)
 
 module.exports = Note
