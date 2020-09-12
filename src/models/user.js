@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
     name: {
@@ -31,8 +32,46 @@ const userSchema = mongoose.Schema({
                 throw new Error('Password must contain at least a special character and must contain more than 6 characters')
             }
         }
-    }
+    },
+    //storing authentication tokens 
+    tokens: [{
+        token: {
+            type: String,
+            reuqired: true
+        }
+    }]
+
 })
+
+//getting the public profile for the user 
+userSchema.methods.toJSON = function(){
+    const user = this 
+
+    //getting the user to an object to delete some properties later on 
+    const userObject = user.toObject()
+
+    //deleting properties from the user object that you don't want to be shown in the result
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+
+}
+
+
+//creating a method for the jsonwebtoken
+userSchema.methods.generateAuthToken = async function() {
+    const user = this
+    //generate the actual token (second parameter is the secret)
+    const token = await jwt.sign({ _id: user._id.toString() }, 'nodewebapplication')
+
+    //saving the token to the user instance 
+    user.tokens = user.tokens.concat({ token: token })
+    //saving the user with the token 
+    await user.save()
+
+    return token
+}
 
 //reusable function for the login 
 userSchema.statics.findByCredentials = async (email, password) => {
