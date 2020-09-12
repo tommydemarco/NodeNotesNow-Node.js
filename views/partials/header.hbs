@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- firing off the animations when the doc is loaded -->
+    <!--<script>
+        (function(){
+            document.addEventListener('DOMContentLoaded', () =>{
+                let animatedObjects = document.getElementsByClassName('animate-me-right');
+                for(let i = 0; i<animatedObjects.length; i++){
+                    animatedObjects[i].classList.add('animate__animated');
+                    animatedObjects[i].classList.add('animate__fadeInRight');
+                    animatedObjects[i].classList.add('animate__slow');
+                    animatedObjects[i].classList.add('visible');
+                }
+                let animatedObjects = document.getElementsByClassName('animate-me-left');
+                for(let i = 0; i<animatedObjects.length; i++){
+                    animatedObjects[i].classList.add('animate__animated');
+                    animatedObjects[i].classList.add('animate__fadeInLeft');
+                    animatedObjects[i].classList.add('animate__slow');
+                    animatedObjects[i].classList.add('visible');
+                }
+            });
+
+        })();
+    </script>-->
+</head>
+
+<body>
+    <div>
+	<!--::::: PRELOADER START :::::::-->
+	<div class="preloader">
+		<div>
+			<div class="nb-spinner"></div>
+            <div class="spinner-text animate__animated animate__bounce">NodeNotesNow</div>            
+		</div>
+
+	</div>
+	<!--::::: PRELOADER END :::::::-->
+        <div class="header-blue">
+            <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+                <div class="container"><a class="navbar-brand" href="/">NodeNotesNow</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse"
+                        id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/features">Features</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/features">GitHub</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/features">Contact developer</a></li>
+                            {{!-- <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
+                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="/about">About</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                            </li> --}}
+                        </ul>
+                        <!-- search form -->
+                        <form class="form-inline mr-auto" target="_self">
+                            <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
+                        </form>
+                        
+                        <!-- login and sign up part -->
+                        <span class="navbar-text"> <a href="#" class="login">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></div>
+                </div>
+            </nav>

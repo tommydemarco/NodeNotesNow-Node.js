@@ -1,0 +1,516 @@
+body {overflow-x: hidden;}
+.header-blue .navbar-nav .nav-link {font-size:19px}
+.header-blue .navbar-text {font-size:19px}
+.header-blue .action-button {font-size:19px!important}
+.navbar-brand {font-size:45px; font-family: 'Satisfy', cursive; font-weight:400}
+
+/*=== ANIMATION INVISIBLE-VISIBLE ===*/
+body .animate-me-right, body .animate-me-left {opacity:0;}
+body .visible {opacity:1}
+
+
+/*=== PRELOADER ===*/
+.preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  z-index: 999;
+}
+
+.preloader > div {
+  width: 300px;
+  height: 300px;
+  flex: 0 0 25%;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* NO BORDER SPINNER */
+.nb-spinner {
+  width: 75px;
+  height: 75px;
+  margin: 0;
+  background: transparent;
+  border-top: 4px solid #009688;
+  border-right: 4px solid transparent;
+  border-radius: 50%;
+  animation: 1s spin linear infinite;
+}
+
+/* BORDER TOP SPINNER */
+.bt-spinner {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 4px solid #222;
+  border-top-color: #009688;
+  animation: 1s spin linear infinite;
+}
+
+/* DOUBLE BORDER SPINNER */
+.db-spinner {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 4px solid #222;
+  border-top-color: #009688;
+  border-bottom-color: #009688;
+  animation: 1s spin linear infinite;
+}
+
+/* DOUBLE SPINNER */
+.double-spinner {
+  position: relative;
+}
+
+.dbl-spinner {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 4px solid transparent;
+  border-top: 4px solid #222;
+  border-left: 4px solid #222;
+  animation: 2s spin linear infinite;
+}
+
+.dbl-spinner--2 {
+  border: 4px solid transparent;
+  border-right: 4px solid #009688;
+  border-bottom: 4px solid #009688;
+  animation: 1s spin linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-text {position:absolute; bottom:0px; color:#009688; font-size:24px; font-family: 'Satisfy', cursive;  font-size:45px }
+@media (max-width:768px) {
+  .spinner-text {display:none}
+}
+
+/*=== SNIPPET STANDARD CSS */
+.header-blue {
+    background:linear-gradient(135deg, #122368, #35c1c9);
+    background-color:#184e8e;
+    padding-bottom:80px;
+    font-family:'Source Sans Pro', sans-serif;
+  }
+  
+  @media (min-width:768px) {
+    .header-blue {
+      padding-bottom:70px;
+    }
+  }
+  
+  .header-blue .navbar {
+    background:transparent;
+    padding-top:.75rem;
+    padding-bottom:.75rem;
+    color:#fff;
+    border-radius:0;
+    box-shadow:none;
+    border:none;
+  }
+  
+  @media (min-width:768px) {
+    .header-blue .navbar {
+      padding-top:1rem;
+      padding-bottom:1rem;
+    }
+  }
+  
+  .header-blue .navbar .navbar-brand {
+    font-weight:bold;
+    color:inherit;
+  }
+  
+  .header-blue .navbar .navbar-brand:hover {
+    color:#f0f0f0;
+  }
+  
+  .header-blue .navbar .navbar-collapse {
+    border-top:1px solid rgba(255,255,255,0.3);
+    margin-top:.5rem;
+  }
+  
+  @media (min-width:768px) {
+    .header-blue .navbar .navbar-collapse {
+      border-color:transparent;
+      margin:0;
+    }
+  }
+  
+  .header-blue .navbar .navbar-collapse span .login {
+    color:#d9d9d9;
+    margin-right:.5rem;
+    text-decoration:none;
+  }
+  
+  .header-blue .navbar .navbar-collapse span .login:hover {
+    color:#fff;
+  }
+  
+  .header-blue .navbar .navbar-toggler {
+    border-color:rgba(255,255,255,0.3);
+  }
+  
+  .header-blue .navbar .navbar-toggler:hover, .header-blue .navbar-toggler:focus {
+    background:none;
+  }
+  
+  .header-blue .navbar .navbar-nav a.active, .header-blue .navbar .navbar-nav > .show .dropdown-item {
+    background:none;
+    box-shadow:none;
+  }
+  
+  @media (min-width: 768px) {
+    .header-blue .navbar-nav .nav-link {
+      padding-left:.7rem;
+      padding-right:.7rem;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .header-blue .navbar-nav .nav-link {
+      padding-left:1.2rem;
+      padding-right:1.2rem;
+    }
+  }
+  
+  .header-blue .navbar .navbar-nav > li > .dropdown-menu {
+    margin-top:-5px;
+    box-shadow:0 4px 8px rgba(0,0,0,.1);
+    background-color:#fff;
+    border-radius:2px;
+  }
+  
+  .header-blue .navbar .dropdown-menu .dropdown-item:focus, .header-blue .navbar .dropdown-menu .dropdown-item {
+    line-height:2;
+    color:#37434d;
+  }
+  
+  .header-blue .navbar .dropdown-menu .dropdown-item:focus, .header-blue .navbar .dropdown-menu .dropdown-item:hover {
+    background:#ebeff1;
+  }
+  
+  .header-blue .action-button, .header-blue .action-button:not(.disabled):active {
+    border:1px solid rgba(255,255,255,0.7);
+    border-radius:40px;
+    color:#ebeff1;
+    box-shadow:none;
+    text-shadow:none;
+    padding:.3rem .8rem;
+    background:transparent;
+    transition:background-color 0.25s;
+    outline:none;
+  }
+  
+  .header-blue .action-button:hover {
+    color:#fff;
+  }
+  
+  .header-blue .navbar .form-inline label {
+    color:#d9d9d9;
+  }
+  
+  .header-blue .navbar .form-inline .search-field {
+    display:inline-block;
+    width:80%;
+    background:none;
+    border:none;
+    border-bottom:1px solid transparent;
+    border-radius:0;
+    color:#ccc;
+    box-shadow:none;
+    color:inherit;
+    transition:border-bottom-color 0.3s;
+  }
+  
+  .header-blue .navbar .form-inline .search-field:focus {
+    border-bottom:1px solid #ccc;
+  }
+  
+  .header-blue .hero {
+    margin-top:20px;
+    text-align:center;
+  }
+  
+  @media (min-width:768px) {
+    .header-blue .hero {
+      margin-top:40px;
+      text-align:left;
+    }
+  }
+  
+  .header-blue .hero h1 {
+    color:#fff;
+    font-size:40px;
+    margin-top:0;
+    margin-bottom:15px;
+    font-weight:300;
+    line-height:1.4;
+  }
+  
+  @media (min-width:992px) {
+    .header-blue .hero h1 {
+      margin-top:90px;
+      margin-bottom:24px;
+      line-height:1.2;
+    }
+  }
+  
+  .header-blue .hero p {
+    color:rgba(255,255,255,0.8);
+    font-size:20px;
+    margin-bottom:30px;
+    font-weight:300;
+  }
+  
+  .header-blue .phone-holder {
+    text-align:right;
+  }
+  
+  .header-blue div.iphone-mockup {
+    position:relative;
+    max-width:250px;
+    margin:20px;
+    display:inline-block;
+  }
+  
+  .header-blue .iphone-mockup img.device {
+    width:100%;
+    height:auto;
+    max-width:250px;
+  }
+  
+  .header-blue .iphone-mockup .screen {
+    position:absolute;
+    width:88%;
+    height:77%;
+    top:12%;
+    border-radius:2px;
+    left:6%;
+    border:1px solid #444;
+    background-color:#aaa;
+    overflow:hidden;
+    background:url(../../assets/img/screen-content-iphone-6.jpg);
+    background-size:cover;
+    background-position:center;
+  }
+  
+  .header-blue .iphone-mockup .screen:before {
+    content:'';
+    background-color:#fff;
+    position:absolute;
+    width:70%;
+    height:140%;
+    top:-12%;
+    right:-60%;
+    transform:rotate(-19deg);
+    opacity:0.2;
+  }
+  
+/* footer */
+.footer-dark {
+  padding:50px 0;
+  color:#f0f9ff;
+  background-color:#282d32;
+}
+
+.footer-dark h3 {
+  margin-top:0;
+  margin-bottom:12px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.footer-dark ul {
+  padding:0;
+  list-style:none;
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:0;
+}
+
+.footer-dark ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.6;
+}
+
+.footer-dark ul a:hover {
+  opacity:0.8;
+}
+
+@media (max-width:767px) {
+  .footer-dark .item:not(.social) {
+    text-align:center;
+    padding-bottom:20px;
+  }
+}
+
+.footer-dark .item.text {
+  margin-bottom:36px;
+}
+
+@media (max-width:767px) {
+  .footer-dark .item.text {
+    margin-bottom:0;
+  }
+}
+
+.footer-dark .item.text p {
+  opacity:0.6;
+  margin-bottom:0;
+}
+
+.footer-dark .item.social {
+  text-align:center;
+}
+
+@media (max-width:991px) {
+  .footer-dark .item.social {
+    text-align:center;
+    margin-top:20px;
+  }
+}
+
+.footer-dark .item.social > a {
+  font-size:20px;
+  width:36px;
+  height:36px;
+  line-height:36px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.4);
+  margin:0 8px;
+  color:#fff;
+  opacity:0.75;
+}
+
+.footer-dark .item.social > a:hover {
+  opacity:0.9;
+}
+
+.footer-dark .copyright {
+  text-align:center;
+  padding-top:24px;
+  opacity:0.3;
+  font-size:13px;
+  margin-bottom:0;
+}
+
+/* about */
+@media (min-width:991px) {
+.features-boxed .intro h1 {
+  margin-top:50px!important;
+}}
+
+.features-boxed {
+  background-color:transparent;
+}
+
+.features-boxed p {
+  color:#7d8285!important;
+}
+
+.features-boxed h2 {
+  font-weight:400;
+  margin-bottom:40px;
+  padding-top:40px;
+  color:inherit;
+}
+
+@media (max-width:767px) {
+  .features-boxed h2 {
+    margin-bottom:25px;
+    padding-top:25px;
+    font-size:24px;
+  }
+}
+
+.features-boxed .intro {
+  font-size:16px;
+  max-width:500px;
+  margin:0 auto;
+}
+
+.features-boxed .intro p {
+  margin-bottom:0;
+  color:white!important;
+}
+
+.features-boxed .features {
+  padding:50px 0;
+}
+
+.features-boxed .item {
+  text-align:center;
+}
+
+.features-boxed .item .box {
+  text-align:center;
+  padding:30px;
+  background-color:#fff;
+  margin-bottom:30px;
+}
+
+.features-boxed .item .icon {
+  font-size:60px;
+  color:#1485ee;
+  margin-top:20px;
+  margin-bottom:35px;
+}
+
+.features-boxed .item .name {
+  font-weight:400;
+  font-size:19px;
+  margin-bottom:8px;
+  margin-top:0;
+  color:inherit;
+}
+
+.features-boxed .item .description {
+  font-size:17px;
+  margin-top:15px;
+  margin-bottom:20px;
+}
+
+
+/* rewriting screen mockup */
+body .header-blue .iphone-mockup .screen {
+  position: absolute;
+  width: 87%;
+  height: 90%;
+  top: 7%;
+  border-radius: 30px!important;
+  /* border-radius: 2px; */
+  left: 7%;
+  border: 1px solid #444;
+  background-color: #aaa;
+  overflow: hidden;
+  background: url(../../assets/img/screen-content-iphone-6.jpg);
+  background-size: cover;
+  background-position: center;
+}
